@@ -712,7 +712,7 @@ MonoBehaviour:
   spawnSizeMax: 3
   spawnAngleMax: 10
   secondsBetweenSpawnsMin: 0.3
-  secondsBetweenSpawnsMax: 0.6
+  secondsBetweenSpawnsMax: 1
 --- !u!4 &1450007184
 Transform:
   m_ObjectHideFlags: 0
