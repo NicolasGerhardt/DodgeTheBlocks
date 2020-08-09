@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using UnityEngine;
 
 public class FallingBlockController : MonoBehaviour
 {
-    public float fallingSpeed = 10;
+    public float fallingSpeed = 10f;
 
     float screenHalfHeightInWorldUnits;
 
@@ -20,9 +21,14 @@ public class FallingBlockController : MonoBehaviour
     {
         transform.Translate(Vector2.down * fallingSpeed * Time.deltaTime);
 
-        if (transform.position.y < -screenHalfHeightInWorldUnits * 2)
+        if (IsOffScreen())
         {
             Destroy(gameObject);
         }
+    }
+
+    private bool IsOffScreen()
+    {
+        return transform.position.y < -screenHalfHeightInWorldUnits + transform.localScale.y;
     }
 }

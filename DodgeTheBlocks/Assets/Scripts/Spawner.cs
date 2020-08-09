@@ -1,9 +1,13 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
     public GameObject fallingBlockPrefab;
+
+    public float spawnSizeMin = 0.3f;
+    public float spawnSizeMax = 3f;
+
+    public float spawnAngleMax = 10;
 
     public float secondsBetweenSpawns = 1;
     float nextSpawnTime;
@@ -23,8 +27,8 @@ public class Spawner : MonoBehaviour
     {
         if (TimetoSpawnNextBlock())
         {
-            nextSpawnTime = Time.time + secondsBetweenSpawns;
             SpawnNewFallingBlock();
+            nextSpawnTime = Time.time + secondsBetweenSpawns;
         }
     }
 
@@ -35,14 +39,17 @@ public class Spawner : MonoBehaviour
 
     private void SpawnNewFallingBlock()
     {
-        Vector2 spawnPosition = GenerateRandomSpawnPosition();
-        Instantiate(fallingBlockPrefab, spawnPosition, Quaternion.identity);
+        float spawnAngle = Random.Range(-spawnAngleMax, spawnAngleMax);
+        float spawnSize = Random.Range(spawnSizeMin, spawnSizeMax);
+        Vector2 spawnPosition = GenerateRandomSpawnPosition(spawnSize);
+        GameObject NewBlock = (GameObject) Instantiate(fallingBlockPrefab, spawnPosition, Quaternion.Euler(Vector3.forward * spawnAngle));
+        NewBlock.transform.localScale = Vector2.one * spawnSize;
     }
 
-    private Vector2 GenerateRandomSpawnPosition()
+    private Vector2 GenerateRandomSpawnPosition(float spawnSize)
     {
-        float x = UnityEngine.Random.Range(-screenHalfSizeInWorldUnits.x, screenHalfSizeInWorldUnits.x);
-        float y = screenHalfSizeInWorldUnits.y;
+        float x = Random.Range(-screenHalfSizeInWorldUnits.x, screenHalfSizeInWorldUnits.x);
+        float y = screenHalfSizeInWorldUnits.y + spawnSize;
 
         return new Vector2(x, y);
     }
