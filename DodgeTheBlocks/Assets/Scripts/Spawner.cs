@@ -9,7 +9,8 @@ public class Spawner : MonoBehaviour
 
     public float spawnAngleMax = 10;
 
-    public float secondsBetweenSpawns = 1;
+    public float secondsBetweenSpawnsMin = 0.1f;
+    public float secondsBetweenSpawnsMax = 1f;
     float nextSpawnTime;
 
     Vector2 screenHalfSizeInWorldUnits;
@@ -28,7 +29,7 @@ public class Spawner : MonoBehaviour
         if (TimetoSpawnNextBlock())
         {
             SpawnNewFallingBlock();
-            nextSpawnTime = Time.time + secondsBetweenSpawns;
+            SetTimeForNextSpawn();
         }
     }
 
@@ -52,5 +53,11 @@ public class Spawner : MonoBehaviour
         float y = screenHalfSizeInWorldUnits.y + spawnSize;
 
         return new Vector2(x, y);
+    }
+
+    private void SetTimeForNextSpawn()
+    {
+        float secondsBetweenSpawns = Mathf.Lerp(secondsBetweenSpawnsMax, secondsBetweenSpawnsMin, Difficulty.GetDifficultyPercent());
+        nextSpawnTime = Time.time + secondsBetweenSpawns;
     }
 }

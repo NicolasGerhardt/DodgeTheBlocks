@@ -5,13 +5,18 @@ using UnityEngine;
 
 public class FallingBlockController : MonoBehaviour
 {
-    public float fallingSpeed = 10f;
+    public float FallingSpeedMin;
+    public float FallingSpeedMax;
+    
+    float fallingSpeed;
 
     float screenHalfHeightInWorldUnits;
 
     // Start is called before the first frame update
     void Start()
     {
+        fallingSpeed = Mathf.Lerp(FallingSpeedMin, FallingSpeedMax, Difficulty.GetDifficultyPercent());
+
         float blockHeight = transform.localScale.y;
         screenHalfHeightInWorldUnits = Camera.main.orthographicSize + blockHeight;
     }
