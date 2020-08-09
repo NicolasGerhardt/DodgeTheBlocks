@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
 
     float screenHalfWidthInWorldUnits = 1f;
 
+    public event System.Action OnPlayerDeath;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +40,10 @@ public class PlayerController : MonoBehaviour
     {
         if(collision.tag == "Falling Block")
         {
+            if (OnPlayerDeath != null)
+            {
+                OnPlayerDeath();
+            }
             Destroy(gameObject);
         }
     }
