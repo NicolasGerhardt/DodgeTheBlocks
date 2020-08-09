@@ -33,4 +33,12 @@ public class PlayerController : MonoBehaviour
             transform.position = new Vector2(-screenHalfWidthInWorldUnits, transform.position.y);
         }
     }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "Falling Block")
+        {
+            Destroy(gameObject);
+        }
+    }
 }

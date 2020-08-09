@@ -29,6 +29,6 @@ public class FallingBlockController : MonoBehaviour
 
     private bool IsOffScreen()
     {
-        return transform.position.y < -screenHalfHeightInWorldUnits + transform.localScale.y;
+        return transform.position.y < -screenHalfHeightInWorldUnits * 2;
     }
 }
